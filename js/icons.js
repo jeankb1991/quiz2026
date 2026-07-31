@@ -27,7 +27,15 @@ const ICONS = {
 
   globe: `<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="15" stroke="currentColor" stroke-width="2"/><path d="M9 24h30M24 9a22 22 0 0 1 0 30 22 22 0 0 1 0-30z" stroke="currentColor" stroke-width="2"/></svg>`,
 
-  target: `<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="8" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="2" fill="currentColor"/></svg>`
+  target: `<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="8" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="2" fill="currentColor"/></svg>`,
+
+  upload: `<svg viewBox="0 0 48 48" fill="none"><path d="M24 30V10M24 10l-8 8M24 10l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 30v6a4 4 0 0 0 4 4h20a4 4 0 0 0 4-4v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+
+  user: `<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="17" r="8" stroke="currentColor" stroke-width="2"/><path d="M9 40c0-8.3 6.7-14 15-14s15 5.7 15 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+
+  doc: `<svg viewBox="0 0 48 48" fill="none"><path d="M13 6h16l8 8v28a2 2 0 0 1-2 2H13a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M29 6v8h8" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 26h16M16 32h16M16 20h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+
+  trash: `<svg viewBox="0 0 48 48" fill="none"><path d="M9 13h30M18 13V9a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4M14 13l2 27a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2l2-27" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 21v14M28 21v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`
 };
 
 function getIcon(name){

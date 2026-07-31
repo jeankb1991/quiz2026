@@ -1,6 +1,20 @@
 /* quiz.js — motor do questionário com atalhos de teclado, efeitos sonoros, confetes e filtros. */
 
 (function(){
+  // Protege a página: só alunos cadastrados e logados podem fazer o quiz.
+  if (typeof AuthManager !== 'undefined' && !AuthManager.estaLogado()) {
+    location.href = 'index.html';
+    return;
+  }
+  const usuarioAtual = typeof AuthManager !== 'undefined' ? AuthManager.getUsuarioAtual() : null;
+  const headerUserNameEl = document.getElementById('header-user-name');
+  if (headerUserNameEl && usuarioAtual) headerUserNameEl.textContent = usuarioAtual.nome;
+  document.getElementById('btn-logout')?.addEventListener('click', () => {
+    AudioFX.click();
+    AuthManager.logout();
+    location.href = 'index.html';
+  });
+
   const params = new URLSearchParams(location.search);
   const aulaId = params.get('aula');
 
@@ -79,21 +93,33 @@
       showError('Nenhum módulo foi especificado na URL. Escolha um módulo na página inicial.');
       return;
     }
+
+    // Primeiro tenta encontrar entre as aulas personalizadas do aluno (geradas via PDF)
+    const aulaCustom = typeof StorageManager !== 'undefined' ? StorageManager.getCustomAulaById(aulaId) : null;
+    if (aulaCustom) {
+      aulaData = aulaCustom;
+      questoesOriginais = (aulaData.questoes || []).slice();
+      questoes = shuffle(questoesOriginais.slice());
+      renderIntro({ numero: null, titulo: aulaCustom.titulo });
+      return;
+    }
+
     try {
-      const idxRes = await fetch('data/aulas.json');
-      const idx = await idxRes.json();
-      const meta = (idx.aulas || []).find(a => a.id === aulaId);
+      if (typeof AULAS_INDEX === 'undefined' || typeof AULAS_CONTEUDO === 'undefined') {
+        throw new Error('dados das aulas não encontrados');
+      }
+      const meta = (AULAS_INDEX.aulas || []).find(a => a.id === aulaId);
       if (!meta) throw new Error('módulo não encontrado no índice');
 
-      const dataRes = await fetch(meta.arquivo);
-      aulaData = await dataRes.json();
+      aulaData = AULAS_CONTEUDO[aulaId];
+      if (!aulaData) throw new Error('conteúdo do módulo não encontrado');
       questoesOriginais = (aulaData.questoes || []).slice();
       questoes = shuffle(questoesOriginais.slice());
 
       renderIntro(meta);
     } catch (err) {
       console.error(err);
-      showError('Não foi possível carregar este módulo. Verifique sua conexão e os arquivos do sistema.');
+      showError('Não foi possível carregar este módulo. Verifique se o arquivo data/lessons-data.js foi incluído na página.');
     }
   }
 
@@ -117,7 +143,9 @@
 
   function renderIntro(meta) {
     el.loading.classList.add('hidden');
-    el.introEyebrow.textContent = `// aula ${String(meta.numero).padStart(2,'0')}`;
+    el.introEyebrow.textContent = (meta.numero != null)
+      ? `// aula ${String(meta.numero).padStart(2,'0')}`
+      : '// aula personalizada';
     el.introTitulo.textContent = aulaData.titulo || meta.titulo;
     el.introLeitura.textContent = aulaData.leitura_inicial || '';
     el.introContagem.textContent = `${questoes.length} questões`;

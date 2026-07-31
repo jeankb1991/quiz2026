@@ -579,3 +579,202 @@ code {
   .btn-icon-label { display: none; }
   .review-header { flex-direction: column; align-items: flex-start; }
 }
+
+/* ============================================================
+   ACESSIBILIDADE — Alto contraste e tamanho de fonte
+   ============================================================ */
+
+/* Tamanho de fonte ajustável (aplicado na raiz do documento) */
+html.fonte-grande { font-size: 118%; }
+html.fonte-extra-grande { font-size: 136%; }
+
+/* Alto contraste: preto puro, branco puro, amarelo vivo para destaque —
+   paleta clássica de acessibilidade, com bordas mais grossas e foco bem visível. */
+html.alto-contraste {
+  --bg:            #000000;
+  --bg-raised:     #0a0a0a;
+  --bg-panel:      #000000;
+  --bg-panel-2:    #111111;
+  --line:          #ffffff;
+  --line-soft:     #bbbbbb;
+
+  --text:          #ffffff;
+  --text-dim:      #ffffff;
+  --text-faint:    #e8e8e8;
+
+  --signal:        #ffe600;
+  --signal-dim:    rgba(255, 230, 0, 0.25);
+  --data:          #4dd2ff;
+  --data-dim:      rgba(77, 210, 255, 0.25);
+  --amber:         #ffb454;
+  --amber-dim:     rgba(255, 180, 84, 0.3);
+  --danger:        #ff5252;
+  --danger-dim:    rgba(255, 82, 82, 0.3);
+  --success:       #4dff9e;
+  --success-dim:   rgba(77, 255, 158, 0.3);
+}
+html.alto-contraste .board-bg { opacity: 0; }
+html.alto-contraste .board-bg::after { display: none; }
+html.alto-contraste * { text-shadow: none !important; }
+html.alto-contraste .chip-card,
+html.alto-contraste .question-card,
+html.alto-contraste .intro-card,
+html.alto-contraste .result-card,
+html.alto-contraste .user-progress-card,
+html.alto-contraste .opcao,
+html.alto-contraste .auth-card,
+html.alto-contraste .modal-card {
+  border-width: 2px;
+}
+html.alto-contraste .btn-primary { color: #000000; font-weight: 700; }
+html.alto-contraste :focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+
+/* Barra de acessibilidade no cabeçalho */
+.a11y-toolbar { display: flex; align-items: center; gap: 6px; }
+.a11y-toolbar .btn-icon { padding: 8px 12px; }
+.a11y-toolbar .btn-icon.active {
+  border-color: var(--signal);
+  color: var(--signal);
+  background: var(--signal-dim);
+}
+[data-a11y-fonte-label] {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  min-width: 26px;
+  text-align: center;
+  color: var(--text-dim);
+}
+
+/* ============================================================
+   GATE DE AUTENTICAÇÃO (cadastro / login com CPF + senha)
+   ============================================================ */
+.auth-gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-card);
+}
+.auth-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.3rem;
+  margin-bottom: 6px;
+}
+.auth-brand .brand-mark { color: var(--signal); display: flex; }
+.auth-sub { font-size: .92rem; margin-bottom: 24px; }
+
+.auth-tabs { display: flex; gap: 8px; margin-bottom: 22px; background: var(--bg-panel-2); padding: 4px; border-radius: 999px; border: 1px solid var(--line-soft); }
+.auth-tab {
+  flex: 1; text-align: center; padding: 9px 10px; border-radius: 999px;
+  font-family: var(--font-mono); font-size: .85rem; color: var(--text-dim);
+  background: transparent; border: none; cursor: pointer; transition: all .18s ease;
+}
+.auth-tab.active { background: var(--signal); color: #04100c; font-weight: 700; }
+
+.auth-form { display: flex; flex-direction: column; gap: 14px; }
+.field-label { display: block; font-family: var(--font-mono); font-size: .78rem; color: var(--text-faint); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .03em; }
+.field-input {
+  width: 100%;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: var(--radius-s);
+  padding: 13px 14px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+.field-input:focus-visible { outline: 2px solid var(--signal); outline-offset: 1px; }
+.field-hint { font-size: .78rem; color: var(--text-faint); margin-top: 4px; }
+
+.auth-erro {
+  background: var(--danger-dim);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  border-radius: var(--radius-s);
+  padding: 10px 14px;
+  font-size: .88rem;
+}
+
+.auth-submit { width: 100%; justify-content: center; margin-top: 6px; }
+
+/* ============================================================
+   MODAL DE UPLOAD DE PDF (Nova aula)
+   ============================================================ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(3, 5, 12, 0.78);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+.modal-card {
+  width: 100%; max-width: 480px;
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 30px 28px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+.modal-close {
+  position: absolute; top: 18px; right: 18px;
+  background: var(--bg-panel-2); border: 1px solid var(--line);
+  color: var(--text-dim); width: 32px; height: 32px; border-radius: 50%;
+  cursor: pointer; font-size: 1.1rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-close:hover { color: var(--signal); border-color: var(--signal); }
+.modal-title { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; margin-bottom: 6px; }
+.modal-title svg { width: 26px; height: 26px; color: var(--signal); }
+.modal-sub { font-size: .9rem; margin-bottom: 22px; }
+
+.file-drop {
+  border: 2px dashed var(--line);
+  border-radius: var(--radius-m);
+  padding: 22px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
+  color: var(--text-dim);
+  font-size: .9rem;
+}
+.file-drop:hover { border-color: var(--signal); background: var(--bg-panel-2); }
+.file-drop svg { width: 30px; height: 30px; color: var(--signal); margin-bottom: 8px; }
+.file-drop input[type="file"] { display: none; }
+.file-drop-name { font-family: var(--font-mono); font-size: .82rem; color: var(--signal); margin-top: 8px; }
+
+.upload-status {
+  margin-top: 16px; padding: 10px 14px; border-radius: var(--radius-s);
+  font-size: .88rem; min-height: 1px;
+}
+.upload-status.loading { background: var(--data-dim); color: var(--data); border: 1px solid var(--data); }
+.upload-status.success { background: var(--success-dim); color: var(--success); border: 1px solid var(--success); }
+.upload-status.error { background: var(--danger-dim); color: var(--danger); border: 1px solid var(--danger); }
+
+/* Badge "personalizada" nas aulas geradas via PDF */
+.chip-num-custom { color: var(--data); }
+.chip-delete {
+  position: absolute; bottom: 16px; right: 16px;
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--bg-panel-2); border: 1px solid var(--line);
+  color: var(--danger); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 5;
+}
+.chip-delete svg { width: 16px; height: 16px; }
+.chip-delete:hover { border-color: var(--danger); background: var(--danger-dim); }
+.chip-card { position: relative; }
+
+/* ---------- Responsivo (auth/modal) ---------- */
+@media (max-width: 480px) {
+  .auth-card { padding: 26px 22px; }
+  .modal-card { padding: 24px 20px; }
+}
