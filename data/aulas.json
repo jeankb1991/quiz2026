@@ -1,0 +1,9 @@
+{
+  "aulas": [
+    { "id": "aula1", "numero": 1, "titulo": "Introdução à IoT", "resumo": "Definição, aplicações e desafios gerais da Internet das Coisas.", "icone": "network", "arquivo": "data/aula1.json" },
+    { "id": "aula2", "numero": 2, "titulo": "Componentes e Funcionalidades", "resumo": "Sensores, atuadores, conectividade, processamento e IA na IoT.", "icone": "chip", "arquivo": "data/aula2.json" },
+    { "id": "aula3", "numero": 3, "titulo": "Planejamento de Projetos IoT", "resumo": "Definição do problema, metodologia SMART, testes e segurança.", "icone": "gear", "arquivo": "data/aula3.json" },
+    { "id": "aula4", "numero": 4, "titulo": "Segurança e Privacidade", "resumo": "Desafios de segurança, GDPR, CCPA e boas práticas.", "icone": "lock", "arquivo": "data/aula4.json" },
+    { "id": "aula5", "numero": 5, "titulo": "Origem, Aplicações e Avanços", "resumo": "História da IoT, aplicações atuais e tecnologias emergentes.", "icone": "clock", "arquivo": "data/aula5.json" }
+  ]
+}
